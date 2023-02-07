@@ -1,0 +1,12 @@
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password:
+  profiles:
+    active: h2
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+h2-console:
+  port: 8081
