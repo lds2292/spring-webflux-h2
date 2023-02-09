@@ -1,8 +1,6 @@
 package com.example.webfluxpractice
 
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -11,6 +9,22 @@ import reactor.core.publisher.Mono
 class UserController(
     private val userService: UserService
 ) {
+
+    @GetMapping
+    fun findAll() : Flux<User> {
+        return userService.findAll();
+    }
+
+    @GetMapping("mono/error")
+    fun errorMono() : Mono<User> {
+        return Mono.error(RuntimeException("런타임 익셉션"))
+    }
+
+    @GetMapping("flux/error")
+    fun errorFlux() : Flux<User> {
+        return Flux.error(RuntimeException("런타임 익셉션"))
+    }
+
     // 테스트
     @PostMapping
     fun save() : Mono<User> {
@@ -18,14 +32,15 @@ class UserController(
         return userService.save(user)
     }
 
+//    @PostMapping("all")
+//    fun saveAll(
+//        @RequestBody list : Flux<User>) : Mono<List<User>> {
+//        return userService.saveAll(list.log()).collectList()
+//    }
+
     @PostMapping("all")
-    fun saveAll() : Flux<User> {
-        val users = Flux.just(
-            User("라이언", 10),
-            User("제이지", 8),
-            User("어피치", 11),
-            User("춘식이", 5),
-        ).log()
-        return userService.saveAll(users)
+    fun saveAll(
+        @RequestBody list : Flux<User>) : Flux<User> {
+        return userService.saveAll(list.log())
     }
 }

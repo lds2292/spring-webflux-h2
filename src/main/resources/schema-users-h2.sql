@@ -6,6 +6,7 @@ create table users (
                        updated_at datetime NOT NULL,
                        created_at datetime NOT NULL
 );
+create unique index UIDX_NAME ON users(name);
 
 insert into users (name, age, profile_picture_url, updated_at, created_at) values ('user1', 10, null, now(), now());
 insert into users (name, age, profile_picture_url, updated_at, created_at) values ('user2', 20, null, now(), now());

@@ -26,6 +26,7 @@ dependencies {
     implementation("io.r2dbc:r2dbc-h2:1.0.0.RELEASE")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+    implementation("io.projectreactor.tools:blockhound:1.0.7.RELEASE")
 }
 
 tasks.withType<KotlinCompile> {
